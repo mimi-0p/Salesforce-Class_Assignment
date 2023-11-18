@@ -1,4 +1,4 @@
-trigger AccountTrigger on Account (before insert,after insert,after update,before delete) {
+trigger AccountTrigger on Account (before insert,after insert,after update,before delete,After Delete) {
     if(Trigger.isBefore){
         if(Trigger.isInsert){
             
@@ -22,7 +22,7 @@ trigger AccountTrigger on Account (before insert,after insert,after update,befor
            accountTriggerHandler.onAfterInsert(trigger.new); 
         }
         if(Trigger.isDelete){
-            
+           accountTriggerHandler.aftrdlt(); 
         }
     }
 }

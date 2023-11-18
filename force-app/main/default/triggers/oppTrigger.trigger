@@ -5,7 +5,7 @@ trigger oppTrigger on Opportunity (before insert,After update) {
             //oppTriggerHandler.beforeinsert(trigger.new);
         }
         if(Trigger.isUpdate){
-            
+            oppTriggerHandler.oppbeforeupdt(trigger.new,Trigger.oldMap);
         }
         if(Trigger.isDelete){
             
