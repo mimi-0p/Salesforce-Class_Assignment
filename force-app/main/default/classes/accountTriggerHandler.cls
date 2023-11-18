@@ -44,4 +44,19 @@ public class accountTriggerHandler {
         acc.MyExtID_c__c='12345678';
         insert acc;
     }*/
+    /*Create a trigger to store the backup of the deleted account&#39;s name and phone number in a
+	custom object(Account_backup_c), only when accounts are merged*/
+    public static void aftrdlt(){
+        list<Account_Backup__c> bkupacc = new list<Account_Backup__c>();
+        list<Account> acc =[select id,Name,Phone from Account where MasterRecordId != null and IsDeleted=true All ROWS];
+        System.debug(acc);
+        for(Account acc1 : acc){
+            Account_Backup__c acc2 = new Account_Backup__c();
+            acc2.Name = acc1.Name;
+            acc2.Phone__c = acc1.Phone;
+            bkupacc.add(acc2);
+        }
+        insert bkupacc;
+    }
+    
 }

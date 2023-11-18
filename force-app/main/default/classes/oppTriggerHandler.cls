@@ -61,4 +61,15 @@ public class oppTriggerHandler {
         }
         insert opportunityBackups;
     }
+    /*Whenever Opportunity "Stage" is modified to "Closed Won" then set 
+	"Close Date" as "Today Date" and "Type" as "New Customer".*/
+    public Static void oppbeforeupdt(list<Opportunity> newOpp,map<id,Opportunity> oldOpp){
+        System.debug(newOpp);
+        for(Opportunity opp : newOpp){
+            if(opp.StageName == 'Closed Won' && oldOpp.get(opp.Id).StageName!='Closed Won'){
+                opp.CloseDate =Date.today();
+                opp.Type ='New Customer';
+            }
+        }
+    }
 }
