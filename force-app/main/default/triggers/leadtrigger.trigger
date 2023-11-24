@@ -1,7 +1,8 @@
 trigger leadtrigger on Lead (after insert,before Insert,Before Update) {
 	 if(Trigger.isBefore){
         if(Trigger.isInsert){
-            leadTriggerHandler.dupemail(Trigger.new);
+            //leadTriggerHandler.dupemail(Trigger.new);
+            leadTriggerHandler.emailsend(Trigger.new);
         }
         if(Trigger.isUpdate){
             leadTriggerHandler.dupemail(Trigger.new);
