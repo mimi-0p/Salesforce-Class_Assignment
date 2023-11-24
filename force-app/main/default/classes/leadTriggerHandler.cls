@@ -23,10 +23,10 @@ public class leadTriggerHandler {
         List<Lead> duplicateLeads = new List<Lead>();
         for(Lead le : [Select id,Email,Name from Lead where Email !=null]){
             emailEx.add(le.Email);
-            System.debug(emailEx);
         }
+        System.debug(emailEx);
         for(Lead newLead : newl) {
-        if (newLead.Email != null && newLead.Email != '') {
+        if (newLead.Email != null) {
             if (emailEx.contains(newLead.Email)) {
                 duplicateLeads.add(newLead);
             } else {
@@ -41,4 +41,22 @@ public class leadTriggerHandler {
         	}
     	}
    }
+    /*write a trigger to send email after creating lead record salesforce apex*/
+    public static void emailsend(list<Lead> newl){
+       List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
+        for(Lead l1 : newl){
+            if(l1.Email !=null){
+                Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+                List<String> sendTo = new List<String>();
+      			sendTo.add(l1.Email);
+      			mail.setToAddresses(sendTo);
+                mail.setSubject('Your Lead detail are added');
+                String body ='Your lead '+l1.FirstName+ ' details are added';
+                mail.setHtmlBody(body);
+                mails.add(mail);
+            }
+        }
+        Messaging.sendEmail(mails);
+    }
+   
 }
