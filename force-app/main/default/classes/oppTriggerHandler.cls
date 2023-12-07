@@ -1,4 +1,7 @@
 public class oppTriggerHandler {
+    /*When an opportunity is inserted check for its duplicity on the basis of its name and the
+	account to which it is related i.e. If it has the same name and is linked to the same Account
+	then append “Duplicate Opportunity” in the name*/
     public static void beforeinserthandler(list<Opportunity> newOpportunities){
         List<String> existingOpportunityNames = new list<String>();
         list<id> existingOpportunityAccid =new list<id>();
@@ -23,6 +26,8 @@ public class oppTriggerHandler {
             }
         }
 	}
+    /*Write a trigger to stop a user from creating an opportunity if he has more than 2 open
+	opportunities.*/
     public static void beforeinsert(list<Opportunity> newOpportunities){
         List<Id> accountIds = new List<Id>();
     	for (Opportunity opp : newOpportunities){
@@ -45,6 +50,8 @@ public class oppTriggerHandler {
         	}
         }
 	}
+    /*Save the previous details of the opportunity records to *&lt;Opp Name&gt; BackUp’ record
+	whenever any changes are being made to any opportunity record.*/
     public static void backupOpp(list<Opportunity> newOpp,map<id,Opportunity> oldOpp){
         System.debug('new tri'+newOpp);
         System.debug('old tri'+oldOpp);

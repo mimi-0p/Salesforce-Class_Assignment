@@ -1,7 +1,7 @@
 /*Update account description, number of employees, contact last name using
 batch apex. Get the failure record ids in the email. Also, schedule the job for
 every Monday.*/
-public class asynchronousQ2 implements Database.Batchable<sObject>,schedulable {
+public class asynchronousQ2 implements Database.Batchable<sObject>,schedulable,Database.Stateful {
     public list<id> failedrecords = new list<id>();
     public list<id> successfulrecords = new list<id>();
 	public Database.QueryLocator Start(Database.BatchableContext bc){

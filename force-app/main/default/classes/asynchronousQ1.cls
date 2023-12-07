@@ -15,7 +15,5 @@ public class asynchronousQ1 implements Database.Batchable<sObject>{
         update us;
     }
     public void finish(Database.BatchableContext BC){
-        
     }
-
 }
