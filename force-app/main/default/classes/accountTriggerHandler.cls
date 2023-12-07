@@ -1,4 +1,6 @@
 public class accountTriggerHandler {
+    /*When an account is inserted or updated check whether any opportunity is linked to it or not if
+	not then create one whose name is ‘First Opportunity <Account Name>*/
     public static void onAfterInsert(List<Account> newvalues){
         List<Opportunity> opportunitiesToInsert = new List<Opportunity>();
         Set<Id> accountIds = new Set<Id>();
@@ -22,6 +24,8 @@ public class accountTriggerHandler {
         }
         insert opportunitiesToInsert;
     }
+    /*Prevent deletion of account if it has any open opportunity related to it, along with an error
+	message*/
     public static void onBeforeDelete(List<Account> oldvalues){
         system.debug(oldvalues);
         set<id> accidwithopp = new set<id>();
@@ -58,5 +62,4 @@ public class accountTriggerHandler {
         }
         insert bkupacc;
     }
-    
 }

@@ -1,4 +1,6 @@
 public class leadTriggerHandler {
+    /*Whenever a lead gets saved with the source as “Phone Inquiry” then automatically convert
+	it*/
     public static void beforeandafterinsup(list<Lead> newlead){
          List<Database.LeadConvert> leadConverts = new List<Database.LeadConvert>();
 		
