@@ -1,0 +1,32 @@
+<template>
+    <div style="background-color:white;">
+    <h1>Registration Form</h1>
+        <div class="slds-grid slds-grid_vertical">
+            <div class="slds-col slds-m-around_xx-small">
+                <span>
+                    <lightning-input type="text" label="Name" data-id ="stdname"></lightning-input>
+                </span>
+            </div>
+            <div class="slds-col slds-m-around_xx-small">
+                <span>
+                    <lightning-input type="tel" label="Phone Number"  data-id ="phnno"></lightning-input>
+                </span>
+            </div>
+            <div class="slds-col slds-m-around_xx-small">
+                <span>
+                    <lightning-input type="email" label="Email ID"  data-id ="emailid"></lightning-input>
+                </span>
+            </div>
+            <div class="slds-col slds-m-around_xx-small">
+                <span>
+                    <lightning-input type="date" label="D.O.B"  data-id ="dob"></lightning-input>
+                </span>
+            </div>
+            <div class="slds-col slds-m-around_xx-small">
+                <span>
+                    <lightning-button variant="brand" label="Submit" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+                </span>
+            </div>
+        </div>
+    </div>
+</template>
