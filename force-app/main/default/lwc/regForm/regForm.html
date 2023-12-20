@@ -1,0 +1,70 @@
+<template>
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <div class="slds-grid slds-gutters slds-m-around_large">
+                <div class="slds-col">
+                    <span>
+                        <lightning-button variant="brand" label="Registration" title="Non-primary action" onclick={studentReg} class="slds-m-left_x-small"></lightning-button>
+                    </span>
+                </div>
+                <div class="slds-col">
+                    <span>
+                        <lightning-button variant="brand" label="Students" title="Non-primary action" onclick={studentData} class="slds-m-left_x-small"></lightning-button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </article>
+    <template if:true={registration}>
+        <article class="slds-card">
+            <h1>Registration Form</h1>
+                <div class="slds-grid slds-grid_vertical">
+                    <div class="slds-col slds-m-around_xx-small">
+                        <span>
+                            <lightning-input type="text" label="Name" data-id ="stdname"></lightning-input>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-m-around_xx-small">
+                        <span>
+                            <lightning-input type="tel" label="Phone Number"  data-id ="phnno"></lightning-input>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-m-around_xx-small">
+                        <span>
+                            <lightning-input type="email" label="Email ID"  data-id ="emailid"></lightning-input>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-m-around_xx-small">
+                        <span>
+                            <lightning-input type="date" label="D.O.B"  data-id ="dob"></lightning-input>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-m-around_xx-small">
+                        <span>
+                            <lightning-button variant="brand" label="Submit" title="Non-primary action" onclick={submitclick} class="slds-m-left_x-small"></lightning-button>
+                        </span>
+                    </div>
+                </div>
+        </article>
+    </template>
+    <template if:true={isstudent}>
+            <template for:each={studentlist} for:item="temp">
+                <article class="slds-card" key={temp.Id}>
+                    <table border="2" >
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>D.O.B</th>
+                        </tr>
+                        <tr>
+                            <td>{temp.Name}</td>
+                            <td>{temp.Phone}</td>
+                            <td>{temp.Emailid}</td>
+                            <td>{temp.DOB}</td>
+                        </tr>
+                    </table>
+                </article>
+            </template>   
+    </template> 
+</template>
