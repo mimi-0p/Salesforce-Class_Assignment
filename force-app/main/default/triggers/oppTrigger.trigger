@@ -2,6 +2,7 @@ trigger oppTrigger on Opportunity (before insert,After update) {
     if(Trigger.isBefore){
         if(Trigger.isInsert){
             oppTriggerHandler.beforeinserthandler(trigger.new);
+            
             //oppTriggerHandler.beforeinsert(trigger.new);
         }
         if(Trigger.isUpdate){

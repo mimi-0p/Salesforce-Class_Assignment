@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Grand Parent Component">
+         <div class="slds-m-around_medium">
+            <c-parent-account-details onsenddata={handleDataFromChild}></c-parent-account-details>
+            <template if:true={receivedMessage}>
+                <p>Data from Child Component to grandparent:</p>
+                <p>Contact Name: {receivedMessage.Name}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
