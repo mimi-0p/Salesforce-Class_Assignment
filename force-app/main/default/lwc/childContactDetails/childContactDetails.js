@@ -13,6 +13,7 @@ export default class ChildContactDetails extends LightningElement {
     async fetchContactDetails(contactName) {
         try {
             const result = await getContactDetails({ contactName: contactName });
+            console.log(result);
             if (result) {
                 this.contact = result;
                 this.error = undefined;
@@ -22,10 +23,13 @@ export default class ChildContactDetails extends LightningElement {
             this.contact = {};
         }
     }
-    sendData() {
+    sendData(event) {
+
+        //event.preventDefault();
         const eventData = this.contact;
         console.log("dispatch",eventData);
-        const event = new CustomEvent('senddata', { detail: eventData });
-        this.dispatchEvent(event);
+        const event1 = new CustomEvent('senddata', {bubbles: true,
+            composed: true,detail: eventData});
+        this.dispatchEvent(event1);
     }
 }

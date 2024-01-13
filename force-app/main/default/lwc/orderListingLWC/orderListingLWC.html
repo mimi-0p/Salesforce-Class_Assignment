@@ -1,0 +1,51 @@
+<template>
+    <lightning-card title="Order Listing" icon-name="standard:orders">
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col">
+            <div class="slds-size_1-of-2">
+                <lightning-input type="date" label="Start Date" value={startDate} onchange={handleStartDateChange}></lightning-input>
+            </div>
+            <div class="slds-size_1-of-2">
+                <lightning-input type="date" label="End Date" value={endDate} onchange={handleEndDateChange}></lightning-input>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-2 slds-align_absolute-left"> 
+            <div class="slds-size_1-of-2" style="margin-left: 18rem;">
+                <lightning-combobox
+                    label="Sort Order"
+                    value={sortOrder}
+                    options={sortOptions}
+                    onchange={handleSortOrderChange}
+                ></lightning-combobox>
+            </div>
+        </div>
+    </div>
+</lightning-card>
+
+
+
+
+        <template if:true={orders}>
+            <lightning-datatable
+                key-field="Id"
+                data={orders}
+                columns={columns}
+                onrowaction={handleRowAction}
+            ></lightning-datatable>
+        </template>
+        <template if:true={isModalOpen}>
+            <div class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <c-order-details-modal
+                        order-id={selectedOrderId}
+                        ordername={orderName}
+                        startdate={startDate}
+                        enddate={endDate}
+                        onclosemodal={handleModalClose}
+                    ></c-order-details-modal>
+                </div>
+            </div>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </lightning-card>
+</template>

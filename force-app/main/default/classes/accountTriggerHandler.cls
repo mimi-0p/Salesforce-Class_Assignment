@@ -9,8 +9,7 @@ public class accountTriggerHandler {
         }
     	List<Opportunity> existingOpportunities = [SELECT Id, AccountId FROM Opportunity WHERE AccountId IN :accountIds];
         Map<Id, Opportunity> accountIdToOpportunityMap = new Map<Id, Opportunity>();
-        for(Opportunity opp : existingOpportunities) {
-            accountIdToOpportunityMap.put(opp.AccountId, opp);
+        for(Opportunity opp : existingOpportunities) {	accountIdToOpportunityMap.put(opp.AccountId, opp);
         }
     	for(Account acc : newvalues){
            if (!accountIdToOpportunityMap.containsKey(acc.id)){

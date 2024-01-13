@@ -4,7 +4,7 @@
             <c-child-contact-details onsenddata={handleDataFromChild}></c-child-contact-details>
              <template if:true={receivedData}>
                 <p>Data from Child Component:</p>
-                <p>Account Name: {receivedData.Account.Name}</p>
+                <p>Account Name: {receivedData.Name}</p>
             </template>
         </div>
     </lightning-card>
