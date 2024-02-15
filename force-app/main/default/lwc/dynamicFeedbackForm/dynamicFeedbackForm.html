@@ -4,7 +4,13 @@
         <template if:true={questions}>
             <template for:each={questions} for:item="question">
                 <div key={question.Id}>
-                    <p>{question.Question_Text__c}</p>
+                    <div class="question-text-container">
+                        <p>{question.Question_Text__c}</p>
+                        <div class="button-container">
+                            <button class="slds-button">+</button>
+                        </div>
+                    </div>
+                    
                     <template if:true={question.Text_area__c}>
                         <lightning-textarea
                             label="Answer"
@@ -21,20 +27,19 @@
                         </lightning-combobox>
                     </template>
                     <template if:true={question.Radio_button__c}>
-                        <template for:each={radioOptions} for:item="option">
-                            <lightning-input
-                                key={option.label}
-                                type="radio"
-                                label={option.value}
-                                value={option.value}
-                                checked={option.isChecked}
-                                onchange={handleRadioChange}>
-                            </lightning-input>
-                        </template>
+                        <lightning-radio-group
+                            name="radioOptions"
+                            label="Select an option"
+                            value={selectedOption}
+                            options={radioOptions}
+                            onchange={handleRadioChange}>
+                        </lightning-radio-group>
                     </template>
                     <template if:true={question.Checkbox__c}>
                         <template for:each={checkboxOption} for:item="opt">
                             <lightning-input
+                                data-id={opt.label}
+                                name ={opt.label}
                                 key={opt.label}
                                 type="checkbox"
                                 label={opt.label}

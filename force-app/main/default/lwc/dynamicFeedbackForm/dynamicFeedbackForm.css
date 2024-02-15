@@ -1,0 +1,15 @@
+/* myComponent.css */
+.question-container {
+    display: flex;
+    align-items: center;
+}
+
+.question-text-container {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-container {
+    margin-left: 1px; /* Adjust the margin as needed */
+}

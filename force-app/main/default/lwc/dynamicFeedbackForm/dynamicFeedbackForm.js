@@ -1,7 +1,7 @@
 // dynamicFeedbackForm.js
 import { LightningElement, track, wire } from 'lwc';
 import getQuestions from '@salesforce/apex/FeedbackFormController.getQuestions';
-
+import insertData from '@salesforce/apex/FeedbackFormInsert.insertData';
 export default class DynamicFeedbackForm extends LightningElement {
     @track questions;
     @track picklistOptions = [];
@@ -12,7 +12,7 @@ export default class DynamicFeedbackForm extends LightningElement {
     @track checkboxAnswerName;
     @track radioOptions = [];
     @track selectedRadioOption = false;
-     @track selectedRadioOptionName;
+    @track selectedRadioOptionName;
 
     @wire(getQuestions)
     wiredQuestions({ error, data }) {
@@ -56,19 +56,71 @@ export default class DynamicFeedbackForm extends LightningElement {
         console.log( this.textAreaAnswer);
     }
 
-    handleCheckboxChange(event) {
-        this.checkboxAnswer = event.target.checked;
-        this.checkboxAnswerName = event.target.label;
-        console.log( this.checkboxAnswerName);
-    }
+    handleCheckboxChange() {
+    
+    
+}
 
-    handleRadioChange(event) {
+
+    handleRadioChange() {
         this.selectedRadioOption = event.target.value;
         this.selectedRadioOptionName =event.target.label
-         console.log( this.selectedRadioOption);
+        console.log( this.selectedRadioOption);
     }
 
     handleSubmit() {
-       
+       var arr ="";
+       this.checkboxOption.forEach(res=>{
+           var temp = this.template.querySelector('[data-id="'+res.label+'"]') ;
+           console.log('temp',temp.checked);
+           if(temp.checked){
+               if(arr=="")
+                 arr=res.label;
+                else
+                 arr = arr+','+res.label;  
+           }
+       });
+      let myMap = new Map();
+      this.questions.forEach(que => {
+            if(que.Picklist__c){
+                myMap.set(que.Question_Text__c, this.selectedPicklistOption);
+            }
+            else if(que.Radio_button__c){
+                 myMap.set(que.Question_Text__c,this.selectedRadioOption);
+            }
+            else if(que.Checkbox__c){
+                 myMap.set(que.Question_Text__c,arr);
+            }
+            else{
+                 myMap.set(que.Question_Text__c,this.textAreaAnswer);
+            }
+      });
+      myMap.forEach((value, key) => {
+    console.log(`${key} = ${value}`);
+    });
+    let jsonArray = JSON.stringify(Array.from(myMap.entries()).map(([key, value]) => ({ key, value })));
+    insertData({
+                   
+                   jsonString:jsonArray
+                    
+                })
+                .then(result => {
+                    
+                    console.log('Object inserted successfully:', result);
+                })
+                .catch(error => {
+                    
+                    console.error('Error inserting object:', error);
+                });
+
+                this.showSuccessToast();
+    }
+     showSuccessToast() {
+        const toastEvent = new ShowToastEvent({
+            title: 'Success!',
+            message: 'Record saved successfully.',
+            variant: 'success',
+        });
+        this.dispatchEvent(toastEvent);
     }
 }
