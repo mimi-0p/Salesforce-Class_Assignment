@@ -3,10 +3,13 @@
     <div class="slds-grid slds-gutters">
         <div class="slds-col">
             <div class="slds-size_1-of-2">
-                <lightning-input type="date" label="Start Date" value={startDate} onchange={handleStartDateChange}></lightning-input>
+                <lightning-input type="date" label="Start Date" data-id ="strtdate"></lightning-input>
             </div>
             <div class="slds-size_1-of-2">
-                <lightning-input type="date" label="End Date" value={endDate} onchange={handleEndDateChange}></lightning-input>
+                <lightning-input type="date" label="End Date" data-id ="enddate"></lightning-input>
+            </div>
+            <div class="slds-size_1-of-2">
+                <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleClick}></lightning-button>
             </div>
         </div>
         <div class="slds-col slds-size_1-of-2 slds-align_absolute-left"> 
@@ -31,6 +34,7 @@
                 data={orders}
                 columns={columns}
                 onrowaction={handleRowAction}
+                onsave={handlesave}
             ></lightning-datatable>
         </template>
         <template if:true={isModalOpen}>
