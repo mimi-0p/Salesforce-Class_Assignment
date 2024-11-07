@@ -1,0 +1,20 @@
+<template>
+    <!-- Display related opportunities for the selected account -->
+    <lightning-card title="Opportunities">
+        <!-- Iterate over opportunities and display details -->
+        <template for:each={opportunities} for:item="opportunity">
+            <div key={opportunity.Id}>
+                {opportunity.Name}
+                <!-- Add a delete button for each opportunity -->
+                <lightning-button-icon
+                    icon-name="utility:delete"
+                    alternative-text="Delete"
+                    variant="bare"
+                    title="Delete"
+                    onclick={handleDelete}
+                    data-id={opportunity.Id}
+                ></lightning-button-icon>
+            </div>
+        </template>
+    </lightning-card>
+</template>

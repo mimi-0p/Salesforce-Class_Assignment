@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Accounts">
+        <template for:each={accounts} for:item="account">
+            <c-account-row
+                key={account.Id}
+                account={account}
+                ondelete={handleDelete}
+                onedit={handleEdit}
+                onaccordion={handleAccordion}
+            ></c-account-row>
+        </template>
+    </lightning-card>
+</template>

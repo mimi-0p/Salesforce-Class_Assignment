@@ -1,0 +1,20 @@
+<template>
+    <!-- Display related contacts for the selected account -->
+    <lightning-card title="Contacts">
+        <!-- Iterate over contacts and display details -->
+        <template for:each={contacts} for:item="contact">
+            <div key={contact.Id}>
+                {contact.Name}
+                <!-- Add a delete button for each contact -->
+                <lightning-button-icon
+                    icon-name="utility:delete"
+                    alternative-text="Delete"
+                    variant="bare"
+                    title="Delete"
+                    onclick={handleDelete}
+                    data-id={contact.Id}
+                ></lightning-button-icon>
+            </div>
+        </template>
+    </lightning-card>
+</template>

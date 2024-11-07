@@ -50,25 +50,33 @@ private class AccountTriggerHandlertest {
         // Perform additional assertions as needed
     }
 
-     @isTest
-    static void testAftrdlt() {
-        // Create test data - Accounts that were merged and deleted
-        Account acc1 = new Account(Name = 'Merged Account 1', Phone = '123456789');
-        Account acc2 = new Account(Name = 'Merged Account 2', Phone = '987654321');
-        insert new List<Account>{ acc1, acc2 };
+    @isTest
+	static void testAftrdlt() {
+    // Create test data - Accounts that will be merged
+    Account acc1 = new Account(Name = 'Merged Account 1', Phone = '123456789');
+    Account acc2 = new Account(Name = 'Merged Account 2', Phone = '987654321');
+    insert new List<Account>{ acc1, acc2 };
 
-        // Merge the accounts
-        Test.startTest();
-        Database.MergeResult mergeResult = Database.merge(acc1, acc2);
-        Test.stopTest();
+    // Create an opportunity related to acc2 (the losing account)
+    Opportunity opp = new Opportunity(
+        Name = 'Test Opportunity',
+        StageName = 'Prospecting',
+        CloseDate = Date.today().addDays(10),
+        AccountId = acc2.Id
+    );
+    insert opp;
 
-        // Check if the merge was successful
-        System.assert(mergeResult.isSuccess(), 'Merge was not successful');
+    // Perform the merge (acc2 will be merged into acc1)
+    Test.startTest();
+    Database.MergeResult mergeResult = Database.merge(acc1, acc2);
+    Test.stopTest();
 
-        // Verify backup records were created
-        List<Account_Backup__c> backupRecords = [SELECT Name, Phone__c FROM Account_Backup__c];
-        System.assertEquals(1, backupRecords.size(), 'Backup records were not created');
+    // Check if the merge was successful
+    System.assert(mergeResult.isSuccess(), 'Merge was not successful');
 
-        // Perform additional assertions as needed
-    }
+    // Verify backup records were created for the merged account
+    List<Account_Backup__c> backupRecords = [SELECT Name, Phone__c FROM Account_Backup__c];
+    System.assertEquals(1, backupRecords.size(), 'Backup records were not created');
+}
+
 }

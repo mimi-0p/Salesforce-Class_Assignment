@@ -1,0 +1,30 @@
+<template>
+    <lightning-card title="Accounts with Related Lists" icon-name="standard:account">
+        <lightning-accordion onsectiontoggle={handleToggleSection}>
+            <template for:each={accounts} for:item="acc">
+                <lightning-accordion-section name={acc.Id} label={acc.Name} key={acc.Id}>
+                    <template if:true={acc.Contacts}>
+                        <p><b>Contacts:</b></p>
+                        <lightning-datatable
+                            data={acc.Contacts}
+                            columns={contactColumns}
+                            key-field="Id">
+                        </lightning-datatable>
+                    </template>
+                    <template if:true={acc.Opportunities}>
+                        <p><b>Opportunities:</b></p>
+                        <lightning-datatable
+                            data={acc.Opportunities}
+                            columns={opportunityColumns}
+                            key-field="Id">
+                        </lightning-datatable>
+                    </template>
+                    <div class="actions">
+                        <button class="actionButton" data-id={acc.Id} onclick={handleEditAccount}>Edit Account</button>
+                        <button class="actionButton" data-id={acc.Id} onclick={handleDeleteAccount}>Delete Account</button>
+                    </div>
+                </lightning-accordion-section>
+            </template>
+        </lightning-accordion>
+    </lightning-card>
+</template>

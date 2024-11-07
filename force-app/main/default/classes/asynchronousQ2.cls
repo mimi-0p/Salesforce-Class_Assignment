@@ -5,8 +5,7 @@ public class asynchronousQ2 implements Database.Batchable<sObject>,schedulable,D
     public list<id> failedrecords = new list<id>();
     public list<id> successfulrecords = new list<id>();
 	public Database.QueryLocator Start(Database.BatchableContext bc){
-        return Database.getQueryLocator([Select id,Description,NumberOfEmployees,
-                                         (Select id,LastName from Contacts) from Account ]);
+        return Database.getQueryLocator([Select id,Description,NumberOfEmployees,(Select id,LastName from Contacts) from Account ]);
     }
     public void execute(Database.BatchableContext BC, List<Account> scope){
         list<Account> acc =new list<Account>();
@@ -14,9 +13,7 @@ public class asynchronousQ2 implements Database.Batchable<sObject>,schedulable,D
         for(Account ac : Scope){
             ac.Description ='Updated Description';
             ac.NumberOfEmployees=100;
-            for(Contact cn : ac.Contacts){
-                cn.LastName ='Updated Name Batch';
-                Cont.add(cn);
+            for(Contact cn : ac.Contacts){cn.LastName ='Updated Name Batch'; Cont.add(cn);
             }
             acc.add(ac);
         }
