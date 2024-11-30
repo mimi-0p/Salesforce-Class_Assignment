@@ -62,4 +62,18 @@ public class accountTriggerHandler {
         }
         insert bkupacc;
     }
+    public static void scenario1(list <Account> newacc){
+        set<id> userid = new set<id>();
+        for(Account acc : newacc){
+            id usrid = acc.OwnerId;
+            userid.add(usrid);
+        }
+        System.debug(userid);
+        Map<Id, User> ownersMap = new Map<Id, User>([SELECT Id, Name FROM User WHERE Id IN :userid]);
+        for(Account acc : newacc){
+            if(ownersMap.containskey(acc.OwnerId)){
+                acc.Sales_Rep__c = ownersMap.get(acc.OwnerId).name;
+            }
+        }
+    }
 }
